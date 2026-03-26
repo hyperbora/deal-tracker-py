@@ -14,6 +14,17 @@ def test_should_identify_nintendo_store():
     assert store.store_type == StoreType.NINTENDO
 
 
+def test_should_identify_apple_app_store():
+    """애플 앱스토어 URL을 넣었을 때 APPLE_APP 전용 객체를 반환하는지 확인"""
+    factory = StoreFactory()
+    url = "https://apps.apple.com/kr/app/balatro/id6502453075"
+
+    store = factory.get_store(url)
+
+    assert store is not None
+    assert store.store_type == StoreType.APPLE_APP
+
+
 def test_should_return_none_for_unknown_url():
     """지원하지 않는 URL을 넣었을 때 None을 반환하는지 확인"""
     factory = StoreFactory()
