@@ -1,5 +1,6 @@
 from enum import Enum
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 
 class StoreType(Enum):
@@ -19,3 +20,15 @@ class Store(ABC):
     @abstractmethod
     def extract_id(self, url: str) -> str:
         pass
+
+
+@dataclass(frozen=True)
+class Price:
+    regular: int
+    current: int
+
+    @property
+    def discount_rate(self) -> int:
+        if self.regular == 0:
+            return 0
+        return int((1 - self.current / self.regular) * 100)
